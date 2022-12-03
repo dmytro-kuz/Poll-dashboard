@@ -1,8 +1,8 @@
-<mat-form-field appearance="outline">
+<mat-form-field appearance="fill">
   <mat-label>Favorite food</mat-label>
   <mat-select>
     <mat-option *ngFor="let food of foods" [value]="food.value">
-      <h2>{{ food.viewValue }}</h2>
+      {{ food.viewValue }}
     </mat-option>
   </mat-select>
 </mat-form-field>
