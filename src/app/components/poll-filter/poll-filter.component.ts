@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { first, Observable } from 'rxjs';
+import { Polls } from 'src/app/interfaces/polls';
+import { PollsService } from 'src/app/services/polls.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-poll-filter',
@@ -6,13 +10,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./poll-filter.component.scss'],
 })
 export class PollFilterComponent implements OnInit {
-  constructor() {}
+  constructor(private pollsService: PollsService) {}
 
-  foods: any = [
-    { value: 'steak-0', viewValue: 'Steak' },
-    { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'tacos-2', viewValue: 'Tacos' },
-  ];
+  polls$: Observable<Polls[]> = this.pollsService.getAllPolls();
 
-  ngOnInit() {}
+  pollForm = new FormGroup({
+    selectedPoll: new FormControl(''),
+  });
+
+  ngOnInit() {
+    this.polls$.pipe(first()).subscribe((polls) => {
+      this.pollForm.patchValue({
+        selectedPoll: polls[0].groupId,
+      });
+    });
+  }
+  changePoll() {
+    console.log(this.pollForm.value);
+  }
 }

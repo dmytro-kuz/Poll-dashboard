@@ -1,8 +1,14 @@
-<mat-form-field appearance="fill">
-  <mat-label>Favorite food</mat-label>
-  <mat-select>
-    <mat-option *ngFor="let food of foods" [value]="food.value">
-      {{ food.viewValue }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+<form [formGroup]="pollForm">
+  <mat-form-field *ngIf="polls$ | async as polls" appearance="fill">
+    <mat-label>Data collections</mat-label>
+    <mat-select
+      [value]="polls[0].groupId"
+      (selectionChange)="changePoll()"
+      formControlName="selectedPoll"
+    >
+      <mat-option *ngFor="let item of polls" value="{{ item.groupId }}">
+        {{ item.groupId }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
