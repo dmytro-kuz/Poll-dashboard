@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { first, Observable } from 'rxjs';
+import { first, Observable, tap } from 'rxjs';
 import { Polls } from 'src/app/interfaces/polls';
 import { PollsService } from 'src/app/services/polls.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-poll-filter',
@@ -10,22 +10,34 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./poll-filter.component.scss'],
 })
 export class PollFilterComponent implements OnInit {
-  constructor(private pollsService: PollsService) {}
+  constructor(
+    private pollsService: PollsService,
+    private formBuilder: FormBuilder
+  ) {}
 
   polls$: Observable<Polls[]> = this.pollsService.getAllPolls();
-
-  pollForm = new FormGroup({
-    selectedPoll: new FormControl(''),
+  polls?: Polls[];
+  pollForm: FormGroup = this.formBuilder.group({
+    selectedPoll: [''],
+    selectedId: [''],
   });
 
   ngOnInit() {
     this.polls$.pipe(first()).subscribe((polls) => {
+      this.applyFilters(polls[0].formId);
+      this.polls = polls;
       this.pollForm.patchValue({
         selectedPoll: polls[0].groupId,
+        selectedId: polls[0].formId,
       });
     });
   }
-  changePoll() {
-    console.log(this.pollForm.value);
+
+  applyFilters(pollId?: string) {
+    this.pollsService
+      .getPoll({ id: pollId || this.pollForm.value.selectedPoll })
+      .subscribe((el) => {
+        console.log(el);
+      });
   }
 }

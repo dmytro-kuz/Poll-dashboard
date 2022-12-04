@@ -1,12 +1,12 @@
 <form [formGroup]="pollForm">
-  <mat-form-field *ngIf="polls$ | async as polls" appearance="fill">
+  <mat-form-field *ngIf="polls" appearance="fill">
     <mat-label>Data collections</mat-label>
-    <mat-select
-      [value]="polls[0].groupId"
-      (selectionChange)="changePoll()"
-      formControlName="selectedPoll"
-    >
-      <mat-option *ngFor="let item of polls" value="{{ item.groupId }}">
+    <mat-select formControlName="selectedPoll">
+      <mat-option
+        (click)="applyFilters(item.formId)"
+        *ngFor="let item of polls"
+        value="{{ item.groupId }}"
+      >
         {{ item.groupId }}
       </mat-option>
     </mat-select>
