@@ -8,7 +8,7 @@ import { Poll } from 'src/app/interfaces/poll';
   styleUrls: ['./polls-list.component.scss'],
 })
 export class PollsListComponent implements OnInit {
-  @Input() selectedPollById$?: Observable<Poll>;
+  @Input() selectedPollById$?: Observable<any>;
 
   constructor() {}
 
