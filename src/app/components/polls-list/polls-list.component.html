@@ -1,5 +1,5 @@
-<div *ngIf="selectedPollById$ | async as poll">
-  <div *ngFor="let question of poll[0].questions">
-    <app-poll-item [questions]="question"></app-poll-item>
+<div class="polls-list" *ngIf="selectedPollById$ | async as poll">
+  <div class="poll-card" *ngFor="let questions of poll[0].questions">
+    <app-poll-item [questions]="questions"></app-poll-item>
   </div>
 </div>

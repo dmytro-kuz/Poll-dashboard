@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { HeaderComponent } from './header/header.component';
@@ -18,6 +19,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
+    MatCardModule,
   ],
   declarations: [
     HeaderComponent,
