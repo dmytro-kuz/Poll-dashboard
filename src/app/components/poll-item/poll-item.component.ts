@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-poll-item',
@@ -6,7 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./poll-item.component.scss'],
 })
 export class PollItemComponent implements OnInit {
+  @Input() poll: any;
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.poll);
+  }
 }

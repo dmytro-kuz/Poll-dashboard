@@ -1,8 +1,8 @@
 <div class="dashboard">
   <section class="filter">
-    <app-poll-filter></app-poll-filter>
+    <app-poll-filter (selectedPollById)="getPollById($event)"></app-poll-filter>
   </section>
   <section>
-    <app-polls-list></app-polls-list>
+    <app-polls-list [selectedPollById$]="selectedPollById"></app-polls-list>
   </section>
 </div>

@@ -3,6 +3,7 @@ import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
 import { Polls } from '../interfaces/polls';
 import { HttpParams } from '@angular/common/http';
+import { Poll } from '../interfaces/poll';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class PollsService {
     return this.apiService.get('polls');
   }
 
-  getPoll(pollId: any): Observable<any> {
+  getPoll(pollId: any): Observable<Poll> {
     return this.apiService.get('poll/', this.setHttpParams(pollId));
   }
 

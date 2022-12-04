@@ -1,2 +1,4 @@
-<h2>polls list</h2>
-<app-poll-item></app-poll-item>
+<div *ngIf="selectedPollById$ | async as poll">
+  <h2>polls list</h2>
+  <app-poll-item [poll] ='poll'></app-poll-item>
+</div>

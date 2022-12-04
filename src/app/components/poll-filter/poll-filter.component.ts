@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { first, Observable, tap } from 'rxjs';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { first, Observable } from 'rxjs';
 import { Polls } from 'src/app/interfaces/polls';
 import { PollsService } from 'src/app/services/polls.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Poll } from 'src/app/interfaces/poll';
 
 @Component({
   selector: 'app-poll-filter',
@@ -14,6 +15,8 @@ export class PollFilterComponent implements OnInit {
     private pollsService: PollsService,
     private formBuilder: FormBuilder
   ) {}
+
+  @Output() selectedPollById = new EventEmitter<Observable<Poll>>();
 
   polls$: Observable<Polls[]> = this.pollsService.getAllPolls();
   polls?: Polls[];
@@ -34,10 +37,10 @@ export class PollFilterComponent implements OnInit {
   }
 
   applyFilters(pollId?: string) {
-    this.pollsService
-      .getPoll({ id: pollId || this.pollForm.value.selectedPoll })
-      .subscribe((el) => {
-        console.log(el);
-      });
+    this.selectedPollById.emit(
+      this.pollsService.getPoll({
+        id: pollId || this.pollForm.value.selectedPoll,
+      })
+    );
   }
 }

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { PollsService } from 'src/app/services/polls.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Poll } from 'src/app/interfaces/poll';
 
 @Component({
   selector: 'app-polls-list',
@@ -7,7 +8,9 @@ import { PollsService } from 'src/app/services/polls.service';
   styleUrls: ['./polls-list.component.scss'],
 })
 export class PollsListComponent implements OnInit {
-  constructor(private pollsService: PollsService) {}
+  @Input() selectedPollById$?: Observable<Poll>;
+
+  constructor() {}
 
   ngOnInit() {}
 }
