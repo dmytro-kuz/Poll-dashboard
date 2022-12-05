@@ -1,4 +1,5 @@
 .poll-item {
+  width: 100%;
 
   mat-card {
     background: #FCFCFC;
@@ -7,6 +8,10 @@
 
     mat-card-header {
       border-bottom: 1px solid #E4E4E4;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 22px;
+      color: #505050;
 
       h3 {
         font-weight: 700;
@@ -17,8 +22,32 @@
       }
     }
 
+
+
+    .item-total {
+      display: flex;
+      justify-content: flex-end;
+
+      h3 {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 19px;
+        color: #505050;
+        margin: 51px 51px 12px 0;
+      }
+    }
+
     mat-card-content {
+      display: flex;
       margin-top: 40px;
+
+      app-pie-chart {
+        width: 50%;
+      }
+
+      app-bar-chart {
+        width: 50%;
+      }
     }
   }
 }

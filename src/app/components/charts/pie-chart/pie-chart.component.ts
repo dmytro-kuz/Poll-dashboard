@@ -52,16 +52,6 @@ export class PieChartComponent implements OnInit, AfterViewInit, OnDestroy {
         am5percent.PieChart.new(this.root, {})
       );
 
-      // chart.get('colors')
-      //   .set('colors', [
-      //     am5.color(0xfd7f6f),
-      //     am5.color(0x7eb0d5),
-      //     am5.color(0xb2e061),
-      //     am5.color(0xffb55a),
-      //     am5.color(0xbd7ebe),
-      //     am5.color(0xbeb9db),
-      //   ]);
-
       // Create series
       let series = chart.series.push(
         am5percent.PieSeries.new(this.root, {
@@ -72,15 +62,6 @@ export class PieChartComponent implements OnInit, AfterViewInit, OnDestroy {
       );
 
       series.data.setAll(this.questions!.data);
-
-      // let legend = chart.children.push(
-      //   am5.Legend.new(root, {
-      //     centerX: am5.percent(50),
-      //     x: am5.percent(50),
-      //   })
-      // );
-
-      // legend.data.setAll(series.dataItems);
     });
   }
   ngOnDestroy(): void {

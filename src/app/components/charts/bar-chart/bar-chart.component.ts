@@ -23,7 +23,6 @@ import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 export class BarChartComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() questions?: Questions;
   @Input() root!: am5.Root;
-  // private root!: am5.Root;
   private chart: any;
   private yAxis: any;
   private xAxis: any;
@@ -47,7 +46,7 @@ export class BarChartComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this.root = am5.Root.new(this.questions!.questionId + 1);
 
-    // this.root.setThemes([am5themes_Animated.new(this.root)]);
+    this.root.setThemes([am5themes_Animated.new(this.root)]);
 
     this.chart = this.root.container.children.push(
       am5xy.XYChart.new(this.root, {
@@ -64,12 +63,15 @@ export class BarChartComponent implements OnInit, AfterViewInit, OnDestroy {
       minGridDistance: 30,
     });
 
+    let xRenderer = am5xy.AxisRendererX.new(this.root, {
+      minGridDistance: 40,
+    });
+
     this.yAxis = this.chart.yAxes.push(
       am5xy.CategoryAxis.new(this.root, {
         maxDeviation: 0,
-        categoryField: 'network',
+        categoryField: 'result',
         renderer: yRenderer,
-        tooltip: am5.Tooltip.new(this.root, { themeTags: ['axis'] }),
       })
     );
 
@@ -78,7 +80,7 @@ export class BarChartComponent implements OnInit, AfterViewInit, OnDestroy {
         maxDeviation: 0,
         min: 0,
         extraMax: 0.1,
-        renderer: am5xy.AxisRendererX.new(this.root, {}),
+        renderer: xRenderer,
       })
     );
 
@@ -87,82 +89,31 @@ export class BarChartComponent implements OnInit, AfterViewInit, OnDestroy {
         name: 'Series 1',
         xAxis: this.xAxis,
         yAxis: this.yAxis,
-        valueXField: 'value',
-        categoryYField: 'network',
-        tooltip: am5.Tooltip.new(this.root, {
-          pointerOrientation: 'left',
-          labelText: '{valueX}',
-        }),
+        valueXField: 'count',
+        categoryYField: 'result',
       })
     );
 
-    this.series.columns.template.setAll({
-      cornerRadiusTR: 5,
-      cornerRadiusBR: 5,
-    });
+    this.series.columns.template.adapters.add(
+      'fill',
+      (fill: any, target: any) => {
+        return this.chart
+          .get('colors')
+          .getIndex(this.series.columns.indexOf(target));
+      }
+    );
 
-    // series.columns.template.adapters.add('fill', function (fill, target) {
-    //   return chart.get('colors').getIndex(series.columns.indexOf(target));
-    // });
+    this.series.columns.template.adapters.add(
+      'stroke',
+      (stroke: any, target: any) => {
+        return this.chart
+          .get('colors')
+          .getIndex(this.series.columns.indexOf(target));
+      }
+    );
 
-    // series.columns.template.adapters.add('stroke', function (stroke, target) {
-    //   return chart.get('colors').getIndex(series.columns.indexOf(target));
-    // });
-
-    // Set data
-    let data = [
-      {
-        network: 'Facebook',
-        value: 2255250000,
-      },
-      {
-        network: 'Google+',
-        value: 430000000,
-      },
-      {
-        network: 'Instagram',
-        value: 1000000000,
-      },
-      {
-        network: 'Pinterest',
-        value: 246500000,
-      },
-      {
-        network: 'Reddit',
-        value: 355000000,
-      },
-      {
-        network: 'TikTok',
-        value: 500000000,
-      },
-      {
-        network: 'Tumblr',
-        value: 624000000,
-      },
-      {
-        network: 'Twitter',
-        value: 329500000,
-      },
-      {
-        network: 'WeChat',
-        value: 1000000000,
-      },
-      {
-        network: 'Weibo',
-        value: 431000000,
-      },
-      {
-        network: 'Whatsapp',
-        value: 1433333333,
-      },
-      {
-        network: 'YouTube',
-        value: 1900000000,
-      },
-    ];
-
-    this.yAxis.data.setAll(data);
-    this.series.data.setAll(data);
+    this.yAxis.data.setAll(this.questions!.data);
+    this.series.data.setAll(this.questions!.data);
     this.sortCategoryAxis();
   }
 
@@ -199,8 +150,8 @@ export class BarChartComponent implements OnInit, AfterViewInit, OnDestroy {
         dataItem.animate({
           key: 'deltaPosition',
           to: 0,
-          duration: 1000,
-          easing: am5.ease.out(am5.ease.cubic),
+          duration: 3000,
+          easing: am5.ease.out(am5.ease.linear),
         });
       }
     });

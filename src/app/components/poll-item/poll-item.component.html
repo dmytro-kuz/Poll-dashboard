@@ -1,8 +1,11 @@
 <div class="poll-item">
   <mat-card *ngIf="questions">
-    <mat-card-header
-      ><h3>{{ questions.question }}</h3></mat-card-header
-    >
+    <mat-card-header>
+      <h3>{{ questions.question }}</h3>
+    </mat-card-header>
+    <div class="item-total">
+      <h3>Total Votes - {{ questions.total }}</h3>
+    </div>
     <mat-card-content>
       <app-pie-chart [questions]="questions" [root]="root"></app-pie-chart>
       <app-bar-chart [questions]="questions" [root]="root"></app-bar-chart>
