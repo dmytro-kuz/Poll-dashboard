@@ -15,8 +15,6 @@ npm install -g json-server
 
 ```
 cd src/app/data
-```
-```
 json-server --watch db.json
 ```
 
