@@ -4,4 +4,13 @@
   .filter {
     margin-bottom: 12px;
   }
+
+  mat-spinner {
+    position: absolute;
+    top: 45%;
+    left: 47%;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+  }
 }

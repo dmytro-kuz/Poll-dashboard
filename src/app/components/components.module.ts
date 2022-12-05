@@ -11,8 +11,9 @@ import { PollsListComponent } from './polls-list/polls-list.component';
 import { PollItemComponent } from './poll-item/poll-item.component';
 import { PieChartComponent } from './charts/pie-chart/pie-chart.component';
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { LoaderInterceptorProvider } from '../interceptors/loader.interceptor';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     ReactiveFormsModule,
     FormsModule,
     MatCardModule,
+    MatProgressSpinnerModule,
   ],
   declarations: [
     HeaderComponent,
@@ -32,6 +34,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     PieChartComponent,
     BarChartComponent,
   ],
+  providers: [LoaderInterceptorProvider],
   exports: [HeaderComponent, DashboardComponent, PollsListComponent],
 })
 export class ComponentsModule {}

@@ -1,4 +1,6 @@
 <div class="dashboard">
+  <mat-spinner color="primary" *ngIf="loading$ | async"></mat-spinner>
+
   <section class="filter">
     <app-poll-filter (selectedPollById)="getPollById($event)"></app-poll-filter>
   </section>

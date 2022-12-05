@@ -39,7 +39,7 @@ export class PieChartComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log(this.questions);
+
   }
 
   ngAfterViewInit() {

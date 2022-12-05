@@ -15,7 +15,5 @@ export class PollItemComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-    console.log(this.questions);
-  }
+  ngOnInit() {}
 }
